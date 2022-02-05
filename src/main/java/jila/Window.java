@@ -81,6 +81,9 @@ public class Window {
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+        // Adding the keyboard callback
+        glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+
 
         // Make the OpenGL context current.
         glfwMakeContextCurrent(glfwWindow);
@@ -105,6 +108,11 @@ public class Window {
 
             glClearColor(1f, 1f, 1f, 1f);
             glClear(GL_COLOR_BUFFER_BIT);
+
+            // testing if our key callback works correctly.
+            if (KeyListener.isKeyPressed(GLFW_KEY_SPACE)) {
+                System.out.println("Imagine I'm jumping!");
+            }
 
             glfwSwapBuffers(glfwWindow);
         }
