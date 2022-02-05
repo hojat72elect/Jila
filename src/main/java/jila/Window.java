@@ -4,6 +4,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -25,6 +26,11 @@ public class Window {
         this.title = "Mario";
     }
 
+    /**
+     * this class is singleton.
+     *
+     * @return only one instance of Window will be created.
+     */
     public static Window get() {
         if (Window.window == null) {
             Window.window = new Window();
@@ -39,6 +45,14 @@ public class Window {
 
         init();
         loop();
+
+        // Free up the memory after user closes the window
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        // Terminate GLFW
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
 
     }
 
@@ -63,6 +77,11 @@ public class Window {
             throw new IllegalStateException("Failed to create the GLFW window.");
         }
 
+        // these callbacks are defined in MouseListener.java and are fed to GLFW in here, after the window is created.
+        glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
+        glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+        glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+
         // Make the OpenGL context current.
         glfwMakeContextCurrent(glfwWindow);
         // Enable v-sync
@@ -84,7 +103,7 @@ public class Window {
             // Poll events
             glfwPollEvents();
 
-            glClearColor(1f, 0f, 0f, 1f);
+            glClearColor(1f, 1f, 1f, 1f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             glfwSwapBuffers(glfwWindow);
