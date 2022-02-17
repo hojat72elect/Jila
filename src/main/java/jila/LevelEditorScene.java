@@ -17,6 +17,8 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+        System.out.println("" + (1.0f / dt) + "FPS"); // prints out the refresh rate of this scene.
+
         if (!changingScene && KeyListener.isKeyPressed(KeyEvent.VK_SPACE)) {
             changingScene = true;
         }
