@@ -15,3 +15,7 @@ This engine is in alpha version and not yet ready for usage.
 Lightweight Java Game Library is a kind of java wrapper around some graphic libraries (binding for C libraries).
 
 --------------------------------------
+
+## python games:
+
+This repo also contains some of my games in other languages; such as "Zelda" clone which was written in Python.
