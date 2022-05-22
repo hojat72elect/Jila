@@ -1,6 +1,17 @@
-This is a simple JVM-based game engine, I'm trying to make it a tool 
+# JILA
+
+This is a simple JVM-based game framework, I'm trying to make it a tool
 suitable enough for my Android games such as <a href="https://github.com/hojat72elect/Flappy_Bird">this</a> one.
 
 The main tutorial that explained about this engine is in here: "https://youtu.be/025QFeZfeyM".
 
 This engine is in alpha version and not yet ready for usage.
+
+
+--------------------------------------
+
+## LWJGL:
+
+Lightweight Java Game Library is a kind of java wrapper around some graphic libraries (binding for C libraries).
+
+--------------------------------------
