@@ -36,7 +36,7 @@ public class MouseListener {
         get().xPos = xPos;
         get().yPos = yPos;
 
-        //mouse pointer has mover, so if any of the mouse buttons are pressed, it's dragging.
+        //mouse pointer has moved, so if any of the mouse buttons are pressed, it's dragging.
         get().isDragging = get().mouseButtonPressed[0] || get().mouseButtonPressed[1] || get().mouseButtonPressed[2];
 
     }

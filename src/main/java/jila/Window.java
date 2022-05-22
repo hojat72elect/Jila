@@ -12,14 +12,13 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * Created by Hojat Ghasemi on 2022-02-04.
- * The author could be contacted at "https://twitter.com/hojat_93"
+ * The author could be contacted at "<a href="https://twitter.com/hojat_93">https://twitter.com/hojat_93</a>"
  */
 public class Window {
     private int width, height;
     private String title;
     private long glfwWindow;
 
-    private boolean fadeToBlack = false;
     public float r, g, b, a;
 
     private static Window window = null;
@@ -75,7 +74,7 @@ public class Window {
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);
 
-        // Terminate GLFW
+        // Terminate GLFW and free its error callback.
         glfwTerminate();
         glfwSetErrorCallback(null).free();
 
