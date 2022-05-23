@@ -6,6 +6,7 @@ import pygame
 import sys
 
 from code.debug import debug
+from code.level import Level
 from code.settings import *
 
 
@@ -18,6 +19,8 @@ class Game:
         pygame.display.set_caption('Zelda')
         self.clock = pygame.time.Clock()
 
+        self.level = Level()
+
     def run(self):
         while True:
             # the event loop which checks for recent events in game's world
@@ -27,6 +30,7 @@ class Game:
                     sys.exit()
 
             self.screen.fill('black')
+            self.level.run()
             debug("hello from debug")
             pygame.display.update()
             self.clock.tick(FPS)
