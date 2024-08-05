@@ -1,24 +1,19 @@
 package gdx.utils;
 
+import java.util.Comparator;
+
 /**
  * A stable, adaptive, iterative mergesort that requires far fewer than n lg(n) comparisons when running on partially sorted
  * arrays, while offering performance comparable to a traditional mergesort when run on random arrays. Like all proper mergesorts,
  * this sort is stable and runs O(n log n) time (worst case). In the worst case, this sort requires temporary storage space for
  * n/2 object references; in the best case, it requires only a small constant amount of space.
- * <p>
  * This implementation was adapted from Tim Peters's list sort for Python, which is described in detail here:
- * <p>
- * http://svn.python.org/projects/python/trunk/Objects/listsort.txt
- * <p>
+ * <a href="http://svn.python.org/projects/python/trunk/Objects/listsort.txt">...</a>
  * Tim's C code may be found here:
- * <p>
- * http://svn.python.org/projects/python/trunk/Objects/listobject.c
- * <p>
+ * <a href="http://svn.python.org/projects/python/trunk/Objects/listobject.c">...</a>
  * The underlying techniques are described in this paper (and may have even earlier origins):
- * <p>
  * "Optimistic Sorting and Information Theoretic Complexity" Peter McIlroy SODA (Fourth Annual ACM-SIAM Symposium on Discrete
  * Algorithms), pp 467-474, Austin, Texas, 25-27 January 1993.
- * <p>
  * While the API to this class consists solely of static methods, it is (privately) instantiable; a TimSort instance holds the
  * state of an ongoing sort, assuming the input array is large enough to warrant the full-blown TimSort. Small arrays are sorted
  * in place, using a binary insertion sort.
@@ -62,7 +57,7 @@ class TimSort<T> {
     /**
      * The comparator for this sort.
      */
-    private java.util.Comparator<? super T> c;
+    private Comparator<? super T> c;
     /**
      * This controls when we get *into* galloping mode. It is initialized to MIN_GALLOP. The mergeLo and mergeHi methods nudge it
      * higher for random data, and lower for highly structured data.
@@ -95,7 +90,7 @@ class TimSort<T> {
      * @param a the array to be sorted
      * @param c the comparator to determine the order of the sort
      */
-    private TimSort(T[] a, java.util.Comparator<? super T> c) {
+    private TimSort(T[] a, Comparator<? super T> c) {
         this.a = a;
         this.c = c;
 
@@ -116,7 +111,7 @@ class TimSort<T> {
         runLen = new int[stackLen];
     }
 
-    static <T> void sort(T[] a, java.util.Comparator<? super T> c) {
+    static <T> void sort(T[] a, Comparator<? super T> c) {
         sort(a, 0, a.length, c);
     }
 
@@ -125,7 +120,7 @@ class TimSort<T> {
      * obeys the contract of the public method with the same signature in java.util.Arrays.
      */
 
-    static <T> void sort(T[] a, int lo, int hi, java.util.Comparator<? super T> c) {
+    static <T> void sort(T[] a, int lo, int hi, Comparator<? super T> c) {
         if (c == null) {
             java.util.Arrays.sort(a, lo, hi);
             return;
@@ -152,7 +147,7 @@ class TimSort<T> {
 
             // If run is short, extend to min(minRun, nRemaining)
             if (runLen < minRun) {
-                int force = nRemaining <= minRun ? nRemaining : minRun;
+                int force = Math.min(nRemaining, minRun);
                 binarySort(a, lo, lo + force, lo + runLen, c);
                 runLen = force;
             }
@@ -485,7 +480,7 @@ class TimSort<T> {
 
             // If run is short, extend to min(minRun, nRemaining)
             if (runLen < minRun) {
-                int force = nRemaining <= minRun ? nRemaining : minRun;
+                int force = Math.min(nRemaining, minRun);
                 binarySort(a, lo, lo + force, lo + runLen, c);
                 runLen = force;
             }
@@ -532,7 +527,7 @@ class TimSort<T> {
      * <p>
      * This method has been formally verified to be correct after checking the last 4 runs. Checking for 3 runs results in an
      * exception for large arrays. (Source:
-     * http://envisage-project.eu/proving-android-java-and-python-sorting-algorithm-is-broken-and-how-to-fix-it/)
+     * <a href="http://envisage-project.eu/proving-android-java-and-python-sorting-algorithm-is-broken-and-how-to-fix-it/">...</a>)
      * <p>
      * This method is called each time a new run is pushed onto the stack, so the invariants are guaranteed to hold for i <
      * stackSize upon entry to the method.
@@ -817,7 +812,7 @@ class TimSort<T> {
             if (minGallop < 0) minGallop = 0;
             minGallop += 2; // Penalize for leaving gallop mode
         } // End of "outer" loop
-        this.minGallop = minGallop < 1 ? 1 : minGallop; // Write back to field
+        this.minGallop = Math.max(minGallop, 1); // Write back to field
 
         if (len2 == 1) {
             if (DEBUG) assert len1 > 0;
