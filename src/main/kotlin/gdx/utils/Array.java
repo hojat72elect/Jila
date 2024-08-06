@@ -224,7 +224,7 @@ public class Array<T> implements Iterable<T> {
      * @param value    May be null.
      * @param identity If true, == comparison will be used. If false, .equals() comparison will be used.
      */
-    public boolean contains(@org.jetbrains.annotations.Nullable T value, boolean identity) {
+    public boolean contains(@Null T value, boolean identity) {
         T[] items = this.items;
         int i = size - 1;
         if (identity || value == null) {
@@ -270,7 +270,7 @@ public class Array<T> implements Iterable<T> {
      * @param identity If true, == comparison will be used. If false, .equals() comparison will be used.
      * @return An index of first occurrence of value in array or -1 if no such value exists
      */
-    public int indexOf(@org.jetbrains.annotations.Nullable T value, boolean identity) {
+    public int indexOf(@Null T value, boolean identity) {
         T[] items = this.items;
         if (identity || value == null) {
             for (int i = 0, n = size; i < n; i++)
@@ -290,7 +290,7 @@ public class Array<T> implements Iterable<T> {
      * @param identity If true, == comparison will be used. If false, .equals() comparison will be used.
      * @return An index of last occurrence of value in array or -1 if no such value exists
      */
-    public int lastIndexOf(@org.jetbrains.annotations.Nullable T value, boolean identity) {
+    public int lastIndexOf(@Null T value, boolean identity) {
         T[] items = this.items;
         if (identity || value == null) {
             for (int i = size - 1; i >= 0; i--)
@@ -309,7 +309,7 @@ public class Array<T> implements Iterable<T> {
      * @param identity If true, == comparison will be used. If false, .equals() comparison will be used.
      * @return true if value was found and removed, false otherwise
      */
-    public boolean removeValue(@org.jetbrains.annotations.Nullable T value, boolean identity) {
+    public boolean removeValue(@Null T value, boolean identity) {
         T[] items = this.items;
         if (identity || value == null) {
             for (int i = 0, n = size; i < n; i++) {
@@ -603,7 +603,7 @@ public class Array<T> implements Iterable<T> {
     /**
      * Returns a random item from the array, or null if the array is empty.
      */
-    public @org.jetbrains.annotations.Nullable T random() {
+    public @Null T random() {
         if (size == 0) return null;
         return items[MathUtils.random(0, size - 1)];
     }
