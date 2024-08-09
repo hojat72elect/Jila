@@ -5,7 +5,6 @@ import gdx.Gdx;
 import gdx.graphics.GL20;
 import gdx.graphics.Pixmap;
 import gdx.graphics.Pixmap.Blending;
-import gdx.graphics.Texture;
 import gdx.utils.GdxRuntimeException;
 
 public class MipMapGenerator {
