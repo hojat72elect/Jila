@@ -1,4 +1,4 @@
-package ca.hojat.samples
+package ca.hojat.samples.assimp
 
 import org.lwjgl.assimp.Assimp.aiGetCompileFlags
 import org.lwjgl.assimp.Assimp.aiGetExportFormatCount
